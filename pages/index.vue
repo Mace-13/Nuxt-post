@@ -10,9 +10,15 @@
           v-for="post in posts"
           :key="post.id"
           :title="post.title"
-          :subtitle="post.subtitle" />
+          :subtitle="post.subtitle"
+          :text="post.text"
+          :date="post.createdAt"
+          :isRead="post.isRead"
+        />
+
 
       </div>
+
     </div>
   </div>
 
@@ -30,23 +36,11 @@ export default {
   data (){
     return {
       title: 'My title from Page',
-      posts: [
-        {
-          id: '1',
-          title: 'My first post',
-          subtitle: 'My first subtitle',
-        },
-        {
-          id: '2',
-          title: 'My second post',
-          subtitle: 'My second subtitle',
-        },
-        {
-          id: '3',
-          title: 'My third post',
-          subtitle: 'My third subtitle',
-        }
-      ]
+    }
+  },
+  computed: {
+    posts() {
+      return this.$store.state.posts
     }
   }
 }
