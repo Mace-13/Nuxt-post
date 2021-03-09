@@ -1,8 +1,10 @@
 <template>
   <div>
+
     <navbar />
-    <button type="button" class="btn btn-info ml-4">Create</button>
+    <modal />
     <div class="container">
+
       <div
         v-for="post in posts"
         :key="post.id"
@@ -19,14 +21,22 @@
 
 <script>
 import Navbar from '~/components/Navbar'
+import Modal from '~/components/shared/Modal'
 import { mapState } from 'vuex'
+
 export default {
   components: {
     Navbar,
+    Modal
+  },
+  fetch({store}){
+    if(store.getters['post/hasEmptyItems']) {
+      return store.dispatch('post/fetchPosts')
+    }
   },
   computed: {
     ...mapState({
-      posts: (state) => state.posts
+      posts: (state) => state.post.items
              })
   }
 }

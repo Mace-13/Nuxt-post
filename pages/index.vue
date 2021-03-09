@@ -26,7 +26,8 @@
 
 <script>
 import Navbar from '~/components/navbar'
-import PostItem from "~/components/PostItem";
+import PostItem from "~/components/PostItem"
+import { fetchPostsAPI } from "~/store/post";
 
 export default {
   component: {
@@ -38,11 +39,16 @@ export default {
       title: 'My title from Page',
     }
   },
-  computed: {
-    posts() {
-      return this.$store.state.posts
+  fetch({store}){
+    if(store.getters['post/hasEmptyItems']){
+      return store.dispatch('post/fetchPosts')
     }
-  }
+  },
+ computed: {
+    posts() {
+      return this.$store.state.post.items
+    }
+ }
 }
 </script>
 
